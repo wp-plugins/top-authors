@@ -11,17 +11,14 @@ A widget that sums the top authors on your blog
 == Description ==
 
 This is a very simple plugin for making a list of top posting authors on you blog.
-In this first version you are able to define the number of authors to show up and a custom title. 
-In the next versions there will be more options like format your own output.
+You are able to define the number of authors to show, your own formatting and a custom title. 
+
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Upload `top-authors` folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Go drag and drop the widget to the sidebar of your choice
 
 == Frequently Asked Questions ==
 
