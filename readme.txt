@@ -39,3 +39,6 @@ I'll give you the answer
 * Cleaner and more effective PHP code
 * Added templating / self html support
 * Replaced space in author name by dash so the link is more WP friendly
+
+= 0.3.1 =
+* readme.txt updated
