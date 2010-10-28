@@ -28,8 +28,8 @@ I'll give you the answer
 
 == Screenshots ==
 
-1. screenshot1.png
-2. screenshot2.png
+1. Example of widget in action
+2. The widget setings
 
 
 == Changelog ==
