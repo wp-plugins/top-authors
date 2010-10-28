@@ -26,6 +26,11 @@ You are able to define the number of authors to show, your own formatting and a 
 
 I'll give you the answer
 
+== Screenshots ==
+
+1. screenshot1.png
+2. screenshot2.png
+
 
 == Changelog ==
 
