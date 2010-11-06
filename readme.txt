@@ -6,13 +6,15 @@ Requires at least: 2.8
 Tested up to: 3.01
 Stable tag: 4.3
 
-A widget that sums the top authors on your blog
+A highly customizable widget that sums the top authors on your blog.
 
 == Description ==
 
-This is a very simple plugin for making a list of top posting authors on you blog.
-You are able to define the number of authors to show, your own formatting and a custom title. 
-
+This plugins allows you to easily sum the most contributing authors on your site.
+It is highlty customizable, it's posible to to customize your own HTML output. 
+Customize the tag before and after the list (for example a custom class). 
+Add a gravatar to your list
+set the size of your gravatars
 
 == Installation ==
 
@@ -28,8 +30,10 @@ I'll give you the answer
 
 == Screenshots ==
 
-1. Example of widget in action
-2. The widget setings
+1. Example 1: without gravatar
+2. Example 2: use only gravatar thumbnails
+3. Example 3: Gravatar and text
+4. Widget settings. in this case the settings of Example 3
 
 
 == Changelog ==
@@ -47,3 +51,13 @@ I'll give you the answer
 
 = 0.3.1 =
 * readme.txt updated
+
+= 0.4 =
+* Small bugfix in html template.
+* added gravatar support
+* added custom before and after the list tags (default: <ul> and </ul>)
+
+== Upgrade Notice ==
+
+= 0.4 =
+This update contains new features as: Gravatar support and control over the begin and end tag (<ul>).
