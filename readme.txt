@@ -21,6 +21,7 @@ set the size of your gravatars
 1. Upload `top-authors` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go drag and drop the widget to the sidebar of your choice
+4. Setup the widget! and have fun.
 
 == Frequently Asked Questions ==
 
@@ -55,9 +56,9 @@ I'll give you the answer
 = 0.4 =
 * Small bugfix in html template.
 * added gravatar support
-* added custom before and after the list tags (default: <ul> and </ul>)
+* added custom before and after the list tags 
 
 == Upgrade Notice ==
 
 = 0.4 =
-This update contains new features as: Gravatar support and control over the begin and end tag (<ul>).
+This update contains new features as: Gravatar support and control over the begin and end tag.
