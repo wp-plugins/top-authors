@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: sebvandijk
 Donate link: 
-Tags: Authors, list, widget
+Tags: Authors, list, widget, gravatar, posts
 Requires at least: 2.8
 Tested up to: 3.01
 Stable tag: 4.3
