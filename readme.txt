@@ -60,7 +60,7 @@ I'll give you the answer
 
 = 0.4.1 =
 * Replaced deprecated fuction (http://codex.wordpress.org/Function_Reference/get_usernumposts) with count_many_users_posts
-* Did some underwatter code improvements.
+* Did some underwater code improvements.
 * Added feedback link in widget, to get u guys involved :)
 
 == Upgrade Notice ==
