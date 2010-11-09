@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.4.1
+ * Version: 0.4.2
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
@@ -84,7 +84,9 @@ class Top_Authors extends WP_Widget {
 		 // replaced deprecated wp-function (http://codex.wordpress.org/Function_Reference/get_usernumposts)
 		 $posts = count_many_users_posts($user_list);
 		 
-		 arsort($posts); //use asort($user_list) if ascending by post count is desired
+		arsort($posts); //use asort($user_list) if ascending by post count is desired
+		  
+		 
 		  
 		  // user defined html elemnt before the list
 		  if($user_list){echo $before_the_list;}
@@ -93,15 +95,22 @@ class Top_Authors extends WP_Widget {
 		  {
 		  	$number_of_authors=count($user_list);
 		  }
-		 
-		  
-		  for ( $counter = 0; $counter <= $number_of_authors-1	; $counter += 1) {
 
-			  //user are saved in array from 0 to ... x so we can use the counter
-			  $user = get_userdata($user_list[$counter]);		  
+		 foreach($posts as  $userid => $post) 
+		 {
+		 // for ( $counter = 0; $counter <= $number_of_authors-1	; $counter += 1) {
+
+				// quick and dirty bugfix.
+				$counter++;
+				if($counter>$number_of_authors)
+				{
+					break;
+				}
+
+			  $user = get_userdata($userid);		  
 			  
-			  
-			  $author_posts_url = get_author_posts_url($key);
+
+			  $author_posts_url = get_author_posts_url($userid);
 			 
 			  if(!$user->user_firstname && !$user->user_lastname)
 			  {
@@ -111,7 +120,7 @@ class Top_Authors extends WP_Widget {
 			  $output = str_replace("%linktoposts%",get_bloginfo("wpurl") .'/author/'.str_replace(" ","-",$user->user_login),$template);
 			  $output = str_replace("%firstname%",$user->user_firstname,$output);
 			  $output = str_replace("%lastname%",$user->user_lastname,$output);
-			  $output = str_replace("%nrofposts%",$posts[$user->ID],$output);
+			  $output = str_replace("%nrofposts%",$post,$output);
 			  
 			  $gravatar_detect = strpos($output,"%gravatar%");
 			  

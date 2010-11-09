@@ -63,6 +63,9 @@ I'll give you the answer
 * Did some underwater code improvements.
 * Added feedback link in widget, to get u guys involved :)
 
+= 0.4.2 =
+* bugfix sorting thanx Yusuf Savci for reporting!
+
 == Upgrade Notice ==
 
 = 0.4 =
