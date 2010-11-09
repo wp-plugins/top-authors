@@ -72,66 +72,68 @@ class Top_Authors extends WP_Widget {
 		$user_list=array();
 		
 		$blogusers = get_users_of_blog(); // doh
-		
+			
 		// this part can be a heavyload process if you have a lot of authors
 		// use a plugin like W3 cash to solve this. 
- 	 	// in future versions we will adding a small caching system
+		
  		if ($blogusers) {
 		  foreach ($blogusers as $bloguser) {
-		    $post_count = get_usernumposts($bloguser->user_id);
-		    $user_list[$bloguser->user_id]=$post_count;
-		  }
-		
-		  arsort($user_list); //use asort($user_list) if ascending by post count is desired
-		  $maxauthor=$number_of_authors;
-		  $count=0;
+		    $user_list[]=$bloguser->user_id;
+		   }
+
+		 // replaced deprecated wp-function (http://codex.wordpress.org/Function_Reference/get_usernumposts)
+		 $posts = count_many_users_posts($user_list);
+		 
+		 arsort($posts); //use asort($user_list) if ascending by post count is desired
 		  
 		  // user defined html elemnt before the list
 		  if($user_list){echo $before_the_list;}
-		  
-		  
-/* 		  $total_user_count = count($user_list); */
-		  
-		  foreach ($user_list as $key => $value) {
-		  $count++;
-
-		    if ($count <= $maxauthor) {
-		      $user = get_userdata($key);
-		      $author_posts_url = get_author_posts_url($key);
-		      $post_count = $value;
-		      if(!$user->user_firstname && !$user->user_lastname)
-		      {
-		      	$user->user_firstname = $user->user_login;
-		      }    
-			  //replace anchors in usertemplate		
-		      $output = str_replace("%linktoposts%",get_bloginfo("wpurl") .'/author/'.str_replace(" ","-",$user->user_login),$template);
-		      $output = str_replace("%firstname%",$user->user_firstname,$output);
-		      $output = str_replace("%lastname%",$user->user_lastname,$output);
-		      $output = str_replace("%nrofposts%",$post_count,$output);
-		      
-		      $gravatar_detect = strpos($output,"%gravatar%");
-		      
-		      if($gravatar_detect !== false){
-		     	$gravatar = get_avatar($user->ID, $size = $gravatar_size);
-		     	 $output = str_replace("%gravatar%",$gravatar,$output);
-		     }
-		      
-		      echo $output ."\n";
-		    }
-		    else
-		    {
-		    	break;
-		    }
+		
+		  if(count($user_list)<$number_of_authors)
+		  {
+		  	$number_of_authors=count($user_list);
 		  }
+		 
 		  
+		  for ( $counter = 0; $counter <= $number_of_authors-1	; $counter += 1) {
+
+			  //user are saved in array from 0 to ... x so we can use the counter
+			  $user = get_userdata($user_list[$counter]);		  
+			  
+			  
+			  $author_posts_url = get_author_posts_url($key);
+			 
+			  if(!$user->user_firstname && !$user->user_lastname)
+			  {
+			  	$user->user_firstname = $user->user_login;
+			  }    
+			  //replace anchors in usertemplate		
+			  $output = str_replace("%linktoposts%",get_bloginfo("wpurl") .'/author/'.str_replace(" ","-",$user->user_login),$template);
+			  $output = str_replace("%firstname%",$user->user_firstname,$output);
+			  $output = str_replace("%lastname%",$user->user_lastname,$output);
+			  $output = str_replace("%nrofposts%",$posts[$user->ID],$output);
+			  
+			  $gravatar_detect = strpos($output,"%gravatar%");
+			  
+			  if($gravatar_detect !== false){
+			 	$gravatar = get_avatar($user->ID, $gravatar_size);
+			 	 $output = str_replace("%gravatar%",$gravatar,$output);
+			  }
+			  
+			  // newline in html, al  for the looks!
+			  echo $output ."\n";
+			}
+	
 		  // user defined html after the list
 		  if($user_list){echo $after_the_list;}
 		}
 
-	
 		/* After widget (defined by themes). */
 		echo $after_widget;
 	}
+
+
+
 
 	/**
 	 * Update the widget settings.
@@ -182,7 +184,6 @@ class Top_Authors extends WP_Widget {
 	 * Make use of the get_field_id() and get_field_name() function
 	 * when creating your form elements. This handles the confusing stuff.
 	 */
-	 
 	function form( $instance ) {
 		$defaults = array( 
 			'title' => __(	'Top Authors', 'top_authors'), 
@@ -194,7 +195,7 @@ class Top_Authors extends WP_Widget {
 						);
 						
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-
+		<p>Thank you for using this widget, please, give me some <a href="mailto:feedback@developr.nl">feedback</a>! </p>	
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'hybrid'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:96%;float:right;" />
@@ -220,9 +221,8 @@ class Top_Authors extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'gravatar_size' ); ?>"><?php _e('size of gravatar', 'top_authors'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'gravatar_size' ); ?>" name="<?php echo $this->get_field_name( 'gravatar_size' ); ?>" value="<?php echo $instance['gravatar_size']; ?>" style="width:50%;float:right;" />
 		</p>
-		
+			
 	<?php
 	}
 }
-
 ?>

@@ -10,11 +10,11 @@ A highly customizable widget that sums the top authors on your blog.
 
 == Description ==
 
-This plugins allows you to easily sum the most contributing authors on your site.
-It is highlty customizable, it's posible to to customize your own HTML output. 
-Customize the tag before and after the list (for example a custom class). 
-Add a gravatar to your list
-set the size of your gravatars
+This plugins allows you to easily sum the most contributing authors on your site.<br />
+It is highlty customizable, it's posible to to customize your own HTML output. <br />
+Customize the tag before and after the list (for example a custom class). <br />
+Add a gravatar to your list<br />
+set the size of your gravatars<br />
 
 == Installation ==
 
@@ -58,7 +58,15 @@ I'll give you the answer
 * added gravatar support
 * added custom before and after the list tags 
 
+= 0.4.1 =
+* Replaced deprecated fuction (http://codex.wordpress.org/Function_Reference/get_usernumposts) with count_many_users_posts
+* Did some underwatter code improvements.
+* Added feedback link in widget, to get u guys involved :)
+
 == Upgrade Notice ==
 
 = 0.4 =
-This update contains new features as: Gravatar support and control over the begin and end tag.
+* This update contains new features as: Gravatar support and control over the begin and end tag.
+
+= 0.4.1 =
+* Important update: widget was using deprecated function that maybe will be removed by Wordpress.
