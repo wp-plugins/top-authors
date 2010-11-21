@@ -15,12 +15,14 @@ It is highlty customizable, it's posible to to customize your own HTML output. <
 Customize the tag before and after the list (for example a custom class). <br />
 Add a gravatar to your list<br />
 set the size of your gravatars<br />
+Option to exclude administrator users<br />
 
 == Installation ==
 
-1. Upload `top-authors` folder to the `/wp-content/plugins/` directory
+1. Upload `top-authors` folder to the `/wp-content/plugins/` directory 
+1. OR search for Top-authors in WP-admin > Plugins > Add New
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go drag and drop the widget to the sidebar of your choice
+3. Go to Appearance and drag the top-authors to a sidebar
 4. Setup the widget! and have fun.
 
 == Frequently Asked Questions ==
@@ -34,7 +36,7 @@ I'll give you the answer
 1. Example 1: without gravatar
 2. Example 2: use only gravatar thumbnails
 3. Example 3: Gravatar and text
-4. Widget settings. in this case the settings of Example 3
+4. Widget settings. in this case the settings of Example 2, note the exclude administrator checkbox
 
 
 == Changelog ==
@@ -66,6 +68,10 @@ I'll give you the answer
 = 0.4.2 =
 * bugfix sorting thanx Yusuf Savci for reporting!
 
+= 0.5 =
+* new feature requested by vectorism (thank you): Exclude administrator users from the list.
+	Exclude function get information from wp_capabilities or blog_capabilities. If it's not working on your blog, please contact me.
+
 == Upgrade Notice ==
 
 = 0.4 =
@@ -73,3 +79,6 @@ I'll give you the answer
 
 = 0.4.1 =
 * Important update: widget was using deprecated function that maybe will be removed by Wordpress.
+
+= 0.5 =
+* This update will add the option to exclude administrator users
