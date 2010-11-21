@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.5.1
+ * Version: 0.5
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
@@ -230,7 +230,7 @@ class Top_Authors extends WP_Widget {
 						);
 						
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
-		<p>Thank you for using this widget, please, give me some <a href="mailto:feedback@developr.nl">feedback</a>! And <a href="http://wordpress.org/extend/plugins/top-authors/">rate</a> this plugin.</p>	
+		<p>Thank you for using this widget, please, give me some <a href="mailto:feedback@developr.nl">feedback</a>! And <a href="http://wordpress.org/extend/plugins/top-authors/" target="_blank">rate</a> this plugin.</p>	
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'hybrid'); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:96%;float:right;" />
