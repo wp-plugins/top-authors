@@ -69,8 +69,10 @@ I'll give you the answer
 * bugfix sorting thanx Yusuf Savci for reporting!
 
 = 0.5 =
-* new feature requested by vectorism (thank you): Exclude administrator users from the list.
+* New feature requested by vectorism (thank you): Exclude administrator users from the list.
 	Exclude function get information from wp_capabilities or blog_capabilities. If it's not working on your blog, please contact me.
+= 0.5.1 =
+* New feature to exclude authors with 0 posts (Thanks paul for request)
 
 == Upgrade Notice ==
 

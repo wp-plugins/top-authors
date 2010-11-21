@@ -61,6 +61,7 @@ class Top_Authors extends WP_Widget {
 		$after_the_list = 		htmlspecialchars_decode($instance ['after']);
 		$gravatar_size =		$instance['gravatar_size'];
 		$exclude_admin = 		$instance['exclude_admin'];
+		$exclude_zero = 		$instance['exclude_zero'];
 		
 		/* Before widget (defined by themes). */
 		echo $before_widget;
@@ -138,8 +139,8 @@ class Top_Authors extends WP_Widget {
 				$gravatar = get_avatar($user->ID, $gravatar_size);
 				 $output = str_replace("%gravatar%",$gravatar,$output);
 			}
-			  
-			  if($user_is_admin && $exclude_admin == "on")
+			 
+			  if(($user_is_admin && $exclude_admin == "on") || ($post<1 && $exclude_zero=="on"))
 			  {
 			  	// aiii we skipped an admin user but we still want to get the total number of users right!
 			  	$counter--;
@@ -179,6 +180,7 @@ class Top_Authors extends WP_Widget {
 		$instance['after'] = 			htmlspecialchars($new_instance['after']);
 		
 		$instance['exclude_admin'] =	$new_instance['exclude_admin'];
+		$instance['exclude_zero'] =		$new_instance['exclude_zero'];
 				
 		// check if datainput isnummeric
 		if(is_numeric($new_instance['gravatar_size']))
@@ -240,6 +242,10 @@ class Top_Authors extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'exclude_admin' ); ?>"><?php _e('Exclude administrator users?', 'top_authors'); ?></label>
 			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_admin' ); ?>" name="<?php echo $this->get_field_name( 'exclude_admin' ); ?>" <?php if($instance['exclude_admin'] == 'on'){echo " checked=checked";} ?> />
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'exclude_zero' ); ?>"><?php _e('Exclude users without posts?', 'top_authors'); ?></label>
+			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_zero' ); ?>" name="<?php echo $this->get_field_name( 'exclude_zero' ); ?>" <?php if($instance['exclude_zero'] == 'on'){echo " checked=checked";} ?> />
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e('HTML template use: (%linktoposts% | %firstname% | %lastname% | %nrofposts% | <strong>%gravatar%</strong>)', 'top_authors'); ?></label>
