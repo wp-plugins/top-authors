@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.5
+ * Version: 0.5.1
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
@@ -142,7 +142,7 @@ class Top_Authors extends WP_Widget {
 			 
 			  if(($user_is_admin && $exclude_admin == "on") || ($post<1 && $exclude_zero=="on"))
 			  {
-			  	// aiii we skipped an admin user but we still want to get the total number of users right!
+			  	// aiii we skipped a user but we still want to get the total number of users right!
 			  	$counter--;
 			  }
 			  else
