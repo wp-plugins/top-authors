@@ -3,7 +3,7 @@ Contributors: sebvandijk
 Donate link: 
 Tags: Authors, list, widget, gravatar, posts
 Requires at least: 2.8
-Tested up to: 3.01
+Tested up to: 3.05
 Stable tag: 4.3
 
 A highly customizable widget that sums the top authors on your blog.
@@ -73,6 +73,12 @@ I'll give you the answer
 	Exclude function get information from wp_capabilities or blog_capabilities. If it's not working on your blog, please contact me.
 = 0.5.1 =
 * New feature to exclude authors with 0 posts (Thanks paul for request)
+
+= 0.5.2 =
+* Nickname support
+* Display name support
+* Custom slug support (when using a plugin to rewrite author slug)
+* Custom author link after slug (choose between username | nickname | display name)
 
 == Upgrade Notice ==
 

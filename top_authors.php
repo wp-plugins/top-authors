@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.5.1
+ * Version: 0.5.2
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
@@ -62,6 +62,11 @@ class Top_Authors extends WP_Widget {
 		$gravatar_size =		$instance['gravatar_size'];
 		$exclude_admin = 		$instance['exclude_admin'];
 		$exclude_zero = 		$instance['exclude_zero'];
+		$author_slug =			$instance['linkbase'];
+		$author_link = 			$instance['author_link'];
+
+		if(!$author_slug){$author_slug = 'author';}
+		if(!$author_link){$author_link = 'username';}
 		
 		/* Before widget (defined by themes). */
 		echo $before_widget;
@@ -108,8 +113,8 @@ class Top_Authors extends WP_Widget {
 
 			// create a WP user object
 			$user = new WP_User( $userid );
-
 			
+						
 			// detect if user is administrator
 			// Introduced in version 0.5 of top-authors. Hope this is fool-proof.
 			if($user->wp_capabilities['administrator'] || $user->blog_capabilities['administrator'])
@@ -128,10 +133,21 @@ class Top_Authors extends WP_Widget {
 				$user->user_firstname = $user->user_login;
 			}    
 			//replace anchors in usertemplate		
-			$output = str_replace("%linktoposts%",get_bloginfo("wpurl") .'/author/'.str_replace(" ","-",$user->user_login),$template);
+			//author_slug / display_name	
+			
+			// linkbase - author_link
+			
+			$arr_replace['username'] = $user->user_login;
+			$arr_replace['nickname'] = $user->nickname;
+			$arr_replace['display_name'] = $user->display_name;
+			
+			$output = str_replace("%linktoposts%",get_bloginfo("wpurl") .'/'.$author_slug.'/'.str_replace(" ","-",strtolower($arr_replace[$author_link])),$template);
+			
 			$output = str_replace("%firstname%",$user->user_firstname,$output);
 			$output = str_replace("%lastname%",$user->user_lastname,$output);
 			$output = str_replace("%nrofposts%",$post,$output);
+			$output = str_replace("%nickname%",$user->nickname,$output);
+			$output = str_replace("%displayname%",$user->display_name,$output);
 			
 			$gravatar_detect = strpos($output,"%gravatar%");
 			
@@ -176,6 +192,10 @@ class Top_Authors extends WP_Widget {
 		
 		// htmlspecialchars to save html markup in database, at frontend we use htmlspecialchars_decode
 		$instance['template'] = 		htmlspecialchars($new_instance['template']);
+		
+		$instance['linkbase'] = 		$new_instance['linkbase'];
+		$instance['author_link']	=	$new_instance['author_link'];
+		
 		$instance['before'] = 			htmlspecialchars($new_instance['before']);
 		$instance['after'] = 			htmlspecialchars($new_instance['after']);
 		
@@ -223,6 +243,8 @@ class Top_Authors extends WP_Widget {
 			'title' => __(	'Top Authors', 'top_authors'), 
 							'number' => __(5, 'top_authors'), 
 							'template' => __('<li><a href="%linktoposts%">%gravatar% %firstname% %lastname% </a> number of posts: %nrofposts%</li>', 'top_authors'),
+							'linkbase' => 'authors',
+							'author_link' => 'username',
 							'before' => __('<ul>', 'top_authors'),
 							'after' => __('</ul>', 'top_authors'),
 							'gravatar_size' => __(24),
@@ -248,9 +270,46 @@ class Top_Authors extends WP_Widget {
 			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_zero' ); ?>" name="<?php echo $this->get_field_name( 'exclude_zero' ); ?>" <?php if($instance['exclude_zero'] == 'on'){echo " checked=checked";} ?> />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e('HTML template use: (%linktoposts% | %firstname% | %lastname% | %nrofposts% | <strong>%gravatar%</strong>)', 'top_authors'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e('HTML template use: (%linktoposts% | %firstname% | %lastname% | %displayname% | %nickname% | %nrofposts% |%gravatar%)', 'top_authors'); ?></label>
 			<textarea id="<?php echo $this->get_field_id( 'template' ); ?>" name="<?php echo $this->get_field_name( 'template' ); ?>"  style="width:100%;height:100px;"><?php echo $instance['template']; ?></textarea>
 		</p>
+		<p>Linkbase and auhtor link used to find your author page. (don't touch in default WP config). You will need this when using a plugin like author_slug.
+		<br /> example how used www.example.com/slug/author_link  </p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'linkbase' ); ?>"><?php _e('author slug', 'top_authors'); ?></label>
+			<input id="<?php echo $this->get_field_id( 'linkbase' ); ?>" name="<?php echo $this->get_field_name( 'linkbase' ); ?>" value="<?php echo $instance['linkbase']; ?>" style="width:50%;float:right;" />
+		</p>
+		
+		
+				<p>
+			<label for="<?php echo $this->get_field_id( 'author_link' ); ?>"><?php _e('author_link', 'top_authors'); ?></label>
+			<?php
+				switch($instance['author_link'])
+				{
+					case "username":
+						$select_un = ' selected="selected ';
+					break;
+					
+					case "display_name":
+						$select_dn = ' selected="selected ';
+					break;
+					
+					case "nickname":
+						$select_nn = ' selected="selected ';
+					break;
+				}	
+				
+			?>
+			
+		
+			<select name="<?php echo $this->get_field_name( 'author_link' ); ?>" id="<?php echo $this->get_field_id( 'author_link' ); ?>" style="width:50%;float:right;">
+				<option <?php echo $select_un ?> value="username">Username (default WP) </option>
+				<option <?php echo $select_dn ?> value="display_name">Display Name</option>
+				<option <?php echo $select_nn ?> value="nickname">Nickname</option>
+			</select>
+			
+				</p>
+		
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'before' ); ?>"><?php _e('before the list', 'top_authors'); ?></label>
