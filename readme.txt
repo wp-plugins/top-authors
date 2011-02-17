@@ -80,6 +80,7 @@ I'll give you the answer
 * Custom slug support (when using a plugin to rewrite author slug)
 * Custom author link after slug (choose between username | nickname | display name)
 
+
 == Upgrade Notice ==
 
 = 0.4 =
@@ -90,3 +91,6 @@ I'll give you the answer
 
 = 0.5 =
 * This update will add the option to exclude administrator users
+
+= 0.5.2 = 
+* New features like display and nickname support
