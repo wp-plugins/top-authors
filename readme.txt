@@ -3,7 +3,7 @@ Contributors: sebvandijk
 Donate link: 
 Tags: Authors, list, widget, gravatar, posts
 Requires at least: 2.8
-Tested up to: 3.05
+Tested up to: 3.1
 Stable tag: 4.3
 
 A highly customizable widget that sums the top authors on your blog.
@@ -41,38 +41,8 @@ I'll give you the answer
 
 == Changelog ==
 
-= 0.1 =
-* Initial release
-
-= 0.2 =
-* Check if input is nummeric and between 1 and 99 
-
-= 0.3 =
-* Cleaner and more effective PHP code
-* Added templating / self html support
-* Replaced space in author name by dash so the link is more WP friendly
-
-= 0.3.1 =
-* readme.txt updated
-
-= 0.4 =
-* Small bugfix in html template.
-* added gravatar support
-* added custom before and after the list tags 
-
-= 0.4.1 =
-* Replaced deprecated fuction (http://codex.wordpress.org/Function_Reference/get_usernumposts) with count_many_users_posts
-* Did some underwater code improvements.
-* Added feedback link in widget, to get u guys involved :)
-
-= 0.4.2 =
-* bugfix sorting thanx Yusuf Savci for reporting!
-
-= 0.5 =
-* New feature requested by vectorism (thank you): Exclude administrator users from the list.
-	Exclude function get information from wp_capabilities or blog_capabilities. If it's not working on your blog, please contact me.
-= 0.5.1 =
-* New feature to exclude authors with 0 posts (Thanks paul for request)
+= 0.5.3 =
+* Tested WP3.1, no big changes.
 
 = 0.5.2 =
 * Nickname support
@@ -80,17 +50,51 @@ I'll give you the answer
 * Custom slug support (when using a plugin to rewrite author slug)
 * Custom author link after slug (choose between username | nickname | display name)
 
+= 0.5.1 =
+* New feature to exclude authors with 0 posts (Thanks paul for request)
 
-== Upgrade Notice ==
-
-= 0.4 =
-* This update contains new features as: Gravatar support and control over the begin and end tag.
+= 0.5 =
+* New feature requested by vectorism (thank you): Exclude administrator users from the list.
+	Exclude function get information from wp_capabilities or blog_capabilities. If it's not working on your blog, please contact me.
+	
+= 0.4.2 =
+* bugfix sorting thanx Yusuf Savci for reporting!
 
 = 0.4.1 =
-* Important update: widget was using deprecated function that maybe will be removed by Wordpress.
+* Replaced deprecated fuction (http://codex.wordpress.org/Function_Reference/get_usernumposts) with count_many_users_posts
+* Did some underwater code improvements.
+* Added feedback link in widget, to get u guys involved :)
+
+= 0.4 =
+* Small bugfix in html template.
+* added gravatar support
+* added custom before and after the list tags 
+
+= 0.3.1 =
+* readme.txt updated
+
+= 0.3 =
+* Cleaner and more effective PHP code
+* Added templating / self html support
+* Replaced space in author name by dash so the link is more WP friendly
+
+= 0.2 =
+* Check if input is nummeric and between 1 and 99 
+
+= 0.1 =
+* Initial release
+
+	
+== Upgrade Notice ==
+= 0.5.2 = 
+* New features like display and nickname support
 
 = 0.5 =
 * This update will add the option to exclude administrator users
 
-= 0.5.2 = 
-* New features like display and nickname support
+= 0.4.1 =
+* Important update: widget was using deprecated function that maybe will be removed by Wordpress.
+
+= 0.4 =
+* This update contains new features as: Gravatar support and control over the begin and end tag.
+

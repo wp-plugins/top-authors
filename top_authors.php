@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.5.2
+ * Version: 0.5.3
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
