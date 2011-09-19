@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.5.3
+ * Version: 0.5.4
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
@@ -141,7 +141,7 @@ class Top_Authors extends WP_Widget {
 			$arr_replace['nickname'] = $user->nickname;
 			$arr_replace['display_name'] = $user->display_name;
 			
-			$output = str_replace("%linktoposts%",get_bloginfo("wpurl") .'/'.$author_slug.'/'.str_replace(" ","-",strtolower($arr_replace[$author_link])),$template);
+			$output = str_replace("%linktoposts%",get_bloginfo("url") .'/'.$author_slug.'/'.str_replace(" ","-",strtolower($arr_replace[$author_link])),$template);
 			
 			$output = str_replace("%firstname%",$user->user_firstname,$output);
 			$output = str_replace("%lastname%",$user->user_lastname,$output);

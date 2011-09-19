@@ -3,7 +3,7 @@ Contributors: sebvandijk
 Donate link: 
 Tags: Authors, list, widget, gravatar, posts
 Requires at least: 2.8
-Tested up to: 3.1
+Tested up to: 3.2
 Stable tag: 4.3
 
 A highly customizable widget that sums the top authors on your blog.
@@ -40,6 +40,8 @@ I'll give you the answer
 
 
 == Changelog ==
+= 0.5.4 =
+* Fixed error when wordpress is installed outside of wp directory // thanks Crhis Nolan
 
 = 0.5.3 =
 * Tested WP3.1, no big changes.
