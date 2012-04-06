@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.5.4
+ * Version: 0.5.5
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
@@ -41,7 +41,7 @@ class Top_Authors extends WP_Widget {
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'top_authors' );
 
 		/* Create the widget. */
-		$this->WP_Widget( 'top_authors', __('Top Authors', 'top_authors'), $widget_ops, $control_ops );
+		$this->WP_Widget( 'top_authors' , __( 'Top Authors' , 'top_authors' ), $widget_ops, $control_ops );
 	}
 
 	/**
@@ -52,53 +52,93 @@ class Top_Authors extends WP_Widget {
 	 */
 	function widget( $args, $instance ) {
 		extract( $args );
-
+		
+		// default values 
+		$exclude_admin = false;
+		$exclude_zero = false;
+		
 		/* Our variables from the widget settings. (nice tabbed huh!?)*/
-		$title = 				apply_filters('widget_title', $instance['title'] );
-		$number_of_authors = 	$instance['number'];
-		$template = 			htmlspecialchars_decode($instance['template']);
-		$before_the_list =		htmlspecialchars_decode($instance['before']);
-		$after_the_list = 		htmlspecialchars_decode($instance ['after']);
-		$gravatar_size =		$instance['gravatar_size'];
-		$exclude_admin = 		$instance['exclude_admin'];
-		$exclude_zero = 		$instance['exclude_zero'];
-		$author_slug =			$instance['linkbase'];
-		$author_link = 			$instance['author_link'];
-
-		if(!$author_slug){$author_slug = 'author';}
-		if(!$author_link){$author_link = 'username';}
+		if(isset($instance))
+		{
+			if( isset( $instance[ 'title' ] ) ) {
+				$title = 				apply_filters( 'widget_title', $instance[ 'title' ] );
+			}
+			
+			if( isset( $instance[ 'number' ]) ) {
+				$number_of_authors = 	$instance[ 'number' ];
+			}
+			
+			if( isset( $instance[ 'template' ] ) ) {
+				$template = 			htmlspecialchars_decode( $instance[ 'template' ] );
+			}
+			
+			if( isset( $instance[ 'before' ] ) ) {
+				$before_the_list =		htmlspecialchars_decode( $instance[ 'before' ] );
+			}
+			
+			if( isset( $instance[ 'after' ] ) ) {
+				$after_the_list = 		htmlspecialchars_decode( $instance [ 'after' ] );
+			}
+			
+			if( isset( $instance[ 'gravatar_size' ] ) ) {
+				$gravatar_size =		$instance[ 'gravatar_size' ];
+			}
+			
+			if( isset( $instance[ 'exclude_admin' ] ) ) {
+				$exclude_admin = 		$instance[ 'exclude_admin' ];
+		 	}
+		 	
+			if( isset( $instance[ 'exclude_zero' ] ) ) {
+				$exclude_zero = 		$instance[ 'exclude_zero' ];
+			}
+			
+			if( isset( $instance[ 'linkbase'] ) ) {
+				$author_slug =			$instance[ 'linkbase' ];
+			}
+			
+			if( isset( $instance[ 'author_link' ] ) ) {
+				$author_link = 			$instance[ 'author_link' ];
+			}
+		}
+		if( !isset( $author_slug ) ) { $author_slug = 'author' ; }
+		if( !isset( $author_link ) ) { $author_link = 'username' ;}
+		
+		// define vars
+		$counter=0;
 		
 		/* Before widget (defined by themes). */
-		echo $before_widget;
+		if( isset( $before_widget ) ) {
+			echo $before_widget;
+		}
 
 		/* Display the widget title if one was input (before and after defined by themes). */
-		if ( $title )
+		if( isset( $title ) ) {
 			echo $before_title . $title . $after_title;
+		}
 
-		$user_list=array();
+		$user_list = array();
 		
-		$blogusers = get_users_of_blog(); // doh
-			
-		
+		$blogusers = get_users(); // doh
+
 		// this part can be a heavyload process if you have a lot of authors
-		// use a plugin like W3 cash to solve this. 
-		
- 		if ($blogusers) {
-		  foreach ($blogusers as $bloguser) {
-		    $user_list[]=$bloguser->user_id;
+	
+ 		if ( $blogusers ) {
+		  foreach ( $blogusers as $bloguser ) {
+		  	
+		    $user_list[] = $bloguser->ID;
 		   }
-
+	
 		 // replaced deprecated wp-function (http://codex.wordpress.org/Function_Reference/get_usernumposts)
-		 $posts = count_many_users_posts($user_list);
+		 $posts = count_many_users_posts( $user_list );
 		 
-		arsort($posts); //use asort($user_list) if ascending by post count is desired
-		  
+		 arsort( $posts ); //use asort($user_list) if ascending by post count is desired
+		
 		 
 		  
 		  // user defined html element before the list
-		  if($user_list){echo $before_the_list;}
+		  if( $user_list ) { echo $before_the_list; }
 		
-		  if(count($user_list)<$number_of_authors)
+		  if( count( $user_list ) < $number_of_authors )
 		  {
 		  	$number_of_authors=count($user_list);
 		  }
@@ -114,11 +154,9 @@ class Top_Authors extends WP_Widget {
 			// create a WP user object
 			$user = new WP_User( $userid );
 			
-						
 			// detect if user is administrator
 			// Introduced in version 0.5 of top-authors. Hope this is fool-proof.
-			if($user->wp_capabilities['administrator'] || $user->blog_capabilities['administrator'])
-			{
+			if( isset( $user->wp_capabilities[ 'administrator' ] ) || isset( $user->blog_capabilities[ 'administrator' ] ) ){
 				$user_is_admin = true;
 			}
 			else
@@ -174,6 +212,7 @@ class Top_Authors extends WP_Widget {
 
 		/* After widget (defined by themes). */
 		echo $after_widget;
+	
 	}
 
 
@@ -243,7 +282,7 @@ class Top_Authors extends WP_Widget {
 			'title' => __(	'Top Authors', 'top_authors'), 
 							'number' => __(5, 'top_authors'), 
 							'template' => __('<li><a href="%linktoposts%">%gravatar% %firstname% %lastname% </a> number of posts: %nrofposts%</li>', 'top_authors'),
-							'linkbase' => 'authors',
+							'linkbase' => 'author',
 							'author_link' => 'username',
 							'before' => __('<ul>', 'top_authors'),
 							'after' => __('</ul>', 'top_authors'),
@@ -263,11 +302,11 @@ class Top_Authors extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'exclude_admin' ); ?>"><?php _e('Exclude administrator users?', 'top_authors'); ?></label>
-			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_admin' ); ?>" name="<?php echo $this->get_field_name( 'exclude_admin' ); ?>" <?php if($instance['exclude_admin'] == 'on'){echo " checked=checked";} ?> />
+			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_admin' ); ?>" name="<?php echo $this->get_field_name( 'exclude_admin' ); ?>" <?php if(isset($instance['exclude_admin'])){echo " checked=checked";} ?> />
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'exclude_zero' ); ?>"><?php _e('Exclude users without posts?', 'top_authors'); ?></label>
-			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_zero' ); ?>" name="<?php echo $this->get_field_name( 'exclude_zero' ); ?>" <?php if($instance['exclude_zero'] == 'on'){echo " checked=checked";} ?> />
+			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_zero' ); ?>" name="<?php echo $this->get_field_name( 'exclude_zero' ); ?>" <?php if(isset($instance['exclude_zero'])){echo " checked=checked";} ?> />
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e('HTML template use: (%linktoposts% | %firstname% | %lastname% | %displayname% | %nickname% | %nrofposts% |%gravatar%)', 'top_authors'); ?></label>
@@ -284,28 +323,35 @@ class Top_Authors extends WP_Widget {
 				<p>
 			<label for="<?php echo $this->get_field_id( 'author_link' ); ?>"><?php _e('author_link', 'top_authors'); ?></label>
 			<?php
-				switch($instance['author_link'])
+				$select_un = false; $select_dn = false; $select_nn = false;
+				if(isset($instance['author_link'])){
+					switch($instance['author_link'])
+					{
+						case "username":
+							$select_un = ' selected="selected" ';
+						break;
+						
+						case "display_name":
+							$select_dn = ' selected="selected" ';
+						break;
+						
+						case "nickname":
+							$select_nn = ' selected="selected" ';
+						break;
+					}	
+				}
+				else
 				{
-					case "username":
-						$select_un = ' selected="selected ';
-					break;
-					
-					case "display_name":
-						$select_dn = ' selected="selected ';
-					break;
-					
-					case "nickname":
-						$select_nn = ' selected="selected ';
-					break;
-				}	
+					$select_un = ' selected="selected ';
+				}
 				
 			?>
 			
 		
 			<select name="<?php echo $this->get_field_name( 'author_link' ); ?>" id="<?php echo $this->get_field_id( 'author_link' ); ?>" style="width:50%;float:right;">
-				<option <?php echo $select_un ?> value="username">Username (default WP) </option>
-				<option <?php echo $select_dn ?> value="display_name">Display Name</option>
-				<option <?php echo $select_nn ?> value="nickname">Nickname</option>
+				<option <?php echo $select_un; ?> value="username">Username (default WP) </option>
+				<option <?php echo $select_dn; ?> value="display_name">Display Name</option>
+				<option <?php echo $select_nn; ?> value="nickname">Nickname</option>
 			</select>
 			
 				</p>
