@@ -186,6 +186,8 @@ class Top_Authors extends WP_Widget {
 			$output = str_replace("%nrofposts%",$post,$output);
 			$output = str_replace("%nickname%",$user->nickname,$output);
 			$output = str_replace("%displayname%",$user->display_name,$output);
+			$output = str_replace("%author_id%",$user->ID,$output);
+			$output = str_replace("%link_author_id%",get_bloginfo("url") .'/?author=' .$user->ID,$output);
 			
 			$gravatar_detect = strpos($output,"%gravatar%");
 			
@@ -309,7 +311,7 @@ class Top_Authors extends WP_Widget {
 			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_zero' ); ?>" name="<?php echo $this->get_field_name( 'exclude_zero' ); ?>" <?php if(isset($instance['exclude_zero'])){echo " checked=checked";} ?> />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e('HTML template use: (%linktoposts% | %firstname% | %lastname% | %displayname% | %nickname% | %nrofposts% |%gravatar%)', 'top_authors'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e('HTML template use: (%linktoposts% | %firstname% | %lastname% | %displayname% | %nickname% | %nrofposts% | %author_id% | %gravatar% )', 'top_authors'); ?></label>
 			<textarea id="<?php echo $this->get_field_id( 'template' ); ?>" name="<?php echo $this->get_field_name( 'template' ); ?>"  style="width:100%;height:100px;"><?php echo $instance['template']; ?></textarea>
 		</p>
 		<p>Linkbase and auhtor link used to find your author page. (don't touch in default WP config). You will need this when using a plugin like author_slug.

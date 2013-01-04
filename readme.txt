@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: sebvandijk
-Donate link: 
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=info%40sebvandijk%2enl&lc=NL&item_name=developR&item_number=wp&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: Authors, list, widget, gravatar, posts
 Requires at least: 3.1
-Tested up to: 3.3.1
+Tested up to: 3.5
 Stable tag: 4.3
 
 A highly customizable widget that sums the top authors on your blog.
@@ -40,6 +40,11 @@ I'll give you the answer
 
 
 == Changelog ==
+= 0.5.6 =
+* Tested with WP 3.5
+* Added author id function on request of Gornahoor %author_id% will be the author ID
+* Added author id link (non permalink) %link_author_id% will be www.linktoblog.com?author=1
+
 = 0.5.5 =
 * WP 3.3.1 update.
 * Replaced deprecated function (now useing get_users)
