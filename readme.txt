@@ -43,6 +43,7 @@ I'll give you the answer
 = 0.5.7 =
 * Tested up to WP 3.5.1
 * Added CPT type support and option in widget (check settings to turn on or off) - user request (realtega). Please feedback via: http://wordpress.org/support/topic/custom-post-type-support-1)
+* Pages will never be counted
  
 
 = 0.5.6 =
