@@ -3,7 +3,7 @@ Contributors: sebvandijk
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=info%40sebvandijk%2enl&lc=NL&item_name=developR&item_number=wp&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
 Tags: Authors, list, widget, gravatar, posts
 Requires at least: 3.1
-Tested up to: 3.5
+Tested up to: 3.5.1
 Stable tag: 4.3
 
 A highly customizable widget that sums the top authors on your blog.
@@ -40,6 +40,11 @@ I'll give you the answer
 
 
 == Changelog ==
+= 0.5.7 =
+* Tested up to WP 3.5.1
+* Added CPT type support and option in widget (check settings to turn on or off) - user request (realtega). Please feedback via: http://wordpress.org/support/topic/custom-post-type-support-1)
+ 
+
 = 0.5.6 =
 * Tested with WP 3.5
 * Added author id function on request of Gornahoor %author_id% will be the author ID

@@ -3,7 +3,7 @@
  * Plugin Name: Top Authors
  * Plugin URI: http://developr.nl/work/top-authors
  * Description: A highly customizable widget that sums the top authors(most contributing) on your blog
- * Version: 0.5.6
+ * Version: 0.5.7
  * Author: developR | Seb van Dijk
  * Author URI: http://www.developr.nl
  *
@@ -92,6 +92,11 @@ class Top_Authors extends WP_Widget {
 				$exclude_zero = 		$instance[ 'exclude_zero' ];
 			}
 			
+			if( isset( $instance[ 'include_CPT' ] ) ) {
+				$include_CPT = 		$instance[ 'include_CPT' ];
+			}
+			
+			
 			if( isset( $instance[ 'linkbase'] ) ) {
 				$author_slug =			$instance[ 'linkbase' ];
 			}
@@ -125,15 +130,25 @@ class Top_Authors extends WP_Widget {
  		if ( $blogusers ) {
 		  foreach ( $blogusers as $bloguser ) {
 		  	
-		    $user_list[] = $bloguser->ID;
+		   	$user_list[] = $bloguser->ID;
 		   }
-	
-		 // replaced deprecated wp-function (http://codex.wordpress.org/Function_Reference/get_usernumposts)
-		 $posts = count_many_users_posts( $user_list );
-		 
+		   global $wpdb;
+		
+		   
+		  // to add CPT support we have to use a custom query
+		  foreach ($user_list as $user)
+			{
+					
+					if(isset($include_CPT))
+					{
+						$posts[$user] = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_author = $user AND NOT post_type = 'page' AND post_status = 'publish'" );
+					}else{
+						$posts[$user] = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_author = $user AND post_type = 'post' AND NOT  post_type = 'page' AND post_status = 'publish'" );
+					}
+			}
+	 
 		 arsort( $posts ); //use asort($user_list) if ascending by post count is desired
 		
-		 
 		  
 		  // user defined html element before the list
 		  if( $user_list ) { echo $before_the_list; }
@@ -242,7 +257,7 @@ class Top_Authors extends WP_Widget {
 		
 		$instance['exclude_admin'] =	$new_instance['exclude_admin'];
 		$instance['exclude_zero'] =		$new_instance['exclude_zero'];
-				
+		$instance['include_CPT']	= $new_instance['include_CPT'];
 		// check if datainput isnummeric
 		if(is_numeric($new_instance['gravatar_size']))
 		{
@@ -310,6 +325,12 @@ class Top_Authors extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'exclude_zero' ); ?>"><?php _e('Exclude users without posts?', 'top_authors'); ?></label>
 			<input type="checkbox" id="<?php echo $this->get_field_id( 'exclude_zero' ); ?>" name="<?php echo $this->get_field_name( 'exclude_zero' ); ?>" <?php if(isset($instance['exclude_zero'])){echo " checked=checked";} ?> />
 		</p>
+		
+		<p>
+			<label for="<?php echo $this->get_field_id( 'include_CPT' ); ?>"><?php _e('Include Custom Post Types?', 'top_authors'); ?></label>
+			<input type="checkbox" id="<?php echo $this->get_field_id( 'include_CPT' ); ?>" name="<?php echo $this->get_field_name( 'include_CPT' ); ?>" <?php if(isset($instance['include_CPT'])){echo " checked=checked";} ?> />
+		</p>
+		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'template' ); ?>"><?php _e('HTML template use: (%linktoposts% | %firstname% | %lastname% | %displayname% | %nickname% | %nrofposts% | %author_id% | %gravatar% )', 'top_authors'); ?></label>
 			<textarea id="<?php echo $this->get_field_id( 'template' ); ?>" name="<?php echo $this->get_field_name( 'template' ); ?>"  style="width:100%;height:100px;"><?php echo $instance['template']; ?></textarea>
