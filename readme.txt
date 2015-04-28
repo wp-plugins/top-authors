@@ -78,6 +78,7 @@ Currently there are two filters you can use to control the options available in 
 3. List With Post Count Preset
 4. Gravatar List With Post Count Preset
 5. Custom Setup
+6. Widget Settings
 
 
 == Changelog ==
