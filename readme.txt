@@ -86,7 +86,6 @@ Currently there are two filters you can use to control the options available in 
 = 1.0.2 (2015-05-05) =
 * Added textdomain properly
 
-
 = 1.0.1 (2015-04-29) =
 * Implemented role exclusion properly
 

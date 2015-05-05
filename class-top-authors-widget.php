@@ -281,8 +281,9 @@ class Top_Authors_Widget extends WP_Widget {
 
             $user_array = array();
 
-            $intersect = array_intersect( $user->roles, $instance['exclude_roles'] );
             foreach( $user_objects as $key => $user ) {
+                $intersect = array_intersect( $user->roles, $instance['exclude_roles'] );
+
                 if( !empty( $intersect ) ) {
                     unset( $user_objects[$key] );
                 }
