@@ -2,7 +2,7 @@
 /*
 Plugin Name:       Top Authors
 Description:       A flexible author display widget which gives you control over the output as well as advanced options like top authors in category.
-Version:           1.0.0
+Version:           1.0.2
 Author:            Daniel Pataki
 Author URI:        http://danielpataki.com/
 License:           GPLv2 or later
@@ -10,6 +10,23 @@ License:           GPLv2 or later
 
 
 include "class-top-authors-widget.php";
+
+
+
+add_action('plugins_loaded', 'ta_load_textdomain');
+
+/**
+ * Load Text Domain
+ *
+ * Loads the textdomain for translations
+ *
+ * @author Daniel Pataki
+ * @since 1.0.2
+ *
+ */
+function ta_load_textdomain() {
+	load_plugin_textdomain( 'top-authors', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+}
 
 add_action( 'widgets_init', 'ta_widget_init' );
 /**

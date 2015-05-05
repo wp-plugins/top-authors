@@ -268,24 +268,58 @@ class Top_Authors_Widget extends WP_Widget {
         // Select user ids ordered by the number of posts they've written
         $users = $wpdb->get_results( "SELECT post_author, COUNT(ID) as post_count FROM $wpdb->posts WHERE ID IN ($posts) GROUP BY post_author ORDER BY post_count DESC LIMIT 0, " . $instance['count'] );
 
-        // Display preset
-        if( method_exists( $this, 'display_' . $instance['preset'] ) ) {
-            call_user_func( array( $this, 'display_' . $instance['preset'] ), $users );
-        }
-        // Display custom list
-        else {
-            echo '<div class="ta-custom">';
-            echo $instance['before_list'];
+        if( !empty( $users ) ) {
 
+            $user_ids = array();
             foreach( $users as $user ) {
-                global $author;
-                $author = get_userdata( $user->post_author );
-                $output = $this->replace_all_tags( $instance['template'], $user->post_count );
-                echo $output;
+                $user_ids[] = $user->post_author;
             }
 
-            echo $instance['after_list'];
-            echo '</div>';
+            $user_objects = get_users(array(
+                'include' => $user_ids
+            ));
+
+            $user_array = array();
+
+            $intersect = array_intersect( $user->roles, $instance['exclude_roles'] );
+            foreach( $user_objects as $key => $user ) {
+                if( !empty( $intersect ) ) {
+                    unset( $user_objects[$key] );
+                }
+                else {
+                    $user_array[$user->ID] = $user;
+                }
+            }
+
+            foreach( $users as $key => $user ) {
+                if( empty( $user_array[$user->post_author] ) ) {
+                    unset( $users[$key] );
+                }
+                else {
+                    $user->user = $user_array[$user->post_author];
+                }
+            }
+
+
+            // Display preset
+            if( method_exists( $this, 'display_' . $instance['preset'] ) ) {
+                call_user_func( array( $this, 'display_' . $instance['preset'] ), $users );
+            }
+            // Display custom list
+            else {
+                echo '<div class="ta-custom">';
+                echo $instance['before_list'];
+
+                foreach( $users as $user ) {
+                    global $author;
+                    $author = $user->user;
+                    $output = $this->replace_all_tags( $instance['template'], $user->post_count );
+                    echo $output;
+                }
+
+                echo $instance['after_list'];
+                echo '</div>';
+            }
         }
 
         echo $args['after_widget'];

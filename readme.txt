@@ -83,6 +83,13 @@ Currently there are two filters you can use to control the options available in 
 
 == Changelog ==
 
+= 1.0.2 (2015-05-05) =
+* Added textdomain properly
+
+
+= 1.0.1 (2015-04-29) =
+* Implemented role exclusion properly
+
 = 1.0.0 (2015-04-28) =
 
 * Category/Tag/Taxonomy archives can have separate author lists based on the category shown
