@@ -266,7 +266,7 @@ class Top_Authors_Widget extends WP_Widget {
         $posts = implode( ',', $posts->posts );
 
         // Select user ids ordered by the number of posts they've written
-        $users = $wpdb->get_results( "SELECT post_author, COUNT(ID) as post_count FROM $wpdb->posts WHERE ID IN ($posts) GROUP BY post_author ORDER BY post_count DESC LIMIT 0, " . $instance['count'] );
+        $users = $wpdb->get_results( "SELECT post_author, COUNT(ID) as post_count FROM $wpdb->posts WHERE ID IN ($posts) GROUP BY post_author ORDER BY post_count" );
 
         if( !empty( $users ) ) {
 
@@ -303,6 +303,7 @@ class Top_Authors_Widget extends WP_Widget {
                 }
             }
 
+            $users = array_slice( $users, 0, $instance['count'] );
 
             // Display preset
             if( method_exists( $this, 'display_' . $instance['preset'] ) ) {

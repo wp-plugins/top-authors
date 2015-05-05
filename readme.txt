@@ -83,6 +83,9 @@ Currently there are two filters you can use to control the options available in 
 
 == Changelog ==
 
+= 1.0.4 (2015-05-05) =
+* A user count issue coupled with role restrictions has been fixed
+
 = 1.0.3 (2015-05-05) =
 * Made sure post types work properly
 
