@@ -238,7 +238,7 @@ class Top_Authors_Widget extends WP_Widget {
 
         // Get the ID of all the required posts
         $atts = array(
-            'post_type' => $include_post_types,
+            'post_type' => $instance['include_post_types'],
             'fields' => 'ids',
             'posts_per_page' => -1
         );
@@ -281,7 +281,9 @@ class Top_Authors_Widget extends WP_Widget {
 
             $user_array = array();
 
+
             foreach( $user_objects as $key => $user ) {
+
                 $intersect = array_intersect( $user->roles, $instance['exclude_roles'] );
 
                 if( !empty( $intersect ) ) {

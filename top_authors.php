@@ -2,7 +2,7 @@
 /*
 Plugin Name:       Top Authors
 Description:       A flexible author display widget which gives you control over the output as well as advanced options like top authors in category.
-Version:           1.0.2
+Version:           1.0.3
 Author:            Daniel Pataki
 Author URI:        http://danielpataki.com/
 License:           GPLv2 or later
