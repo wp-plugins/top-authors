@@ -299,9 +299,7 @@ class Top_Authors_Widget extends WP_Widget {
                 }
             }
 
-
-
-
+            $users = array_slice( $users, 0, $instance['count'] );
 
             // Display preset
             if( method_exists( $this, 'display_' . $instance['preset'] ) ) {

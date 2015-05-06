@@ -83,6 +83,9 @@ Currently there are two filters you can use to control the options available in 
 
 == Changelog ==
 
+= 1.0.6 (2015-05-06) =
+* Corrected an issue with the Authors to show parameter
+
 = 1.0.5 (2015-05-05) =
 * Corrected an typo in 1.0.4 which mixed up author ordering
 
