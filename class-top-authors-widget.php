@@ -366,7 +366,7 @@ class Top_Authors_Widget extends WP_Widget {
             '%gravatar%' => get_avatar( $author->ID, 24 ),
             '%linktoposts%' => get_author_posts_url( $author->ID ),
             '%posts_url%' => get_author_posts_url( $author->ID ),
-            '%website_url%' => $user->user_url,
+            '%website_url%' => $author->user_url,
         );
         $output = str_replace( array_keys( $replacements ), array_values( $replacements ), $template );
 

@@ -83,6 +83,9 @@ Currently there are two filters you can use to control the options available in 
 
 == Changelog ==
 
+= 1.0.7 (2015-05-06) =
+- Corrected a typo in a variable name
+
 = 1.0.6 (2015-05-06) =
 * Corrected an issue with the Authors to show parameter
 
