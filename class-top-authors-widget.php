@@ -261,6 +261,8 @@ class Top_Authors_Widget extends WP_Widget {
             }
         }
 
+        $atts = apply_filters( 'ta/post_query', $atts );
+
         // Grab all posts
         $posts = new WP_Query( $atts );
         $posts = implode( ',', $posts->posts );

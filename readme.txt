@@ -66,10 +66,11 @@ When you select "Custom Structure" as the preset display you should see three ne
 
 = For Developers =
 
-Currently there are two filters you can use to control the options available in the widget.
+Currently there are three filters you can use to control the options available in the widget.
 
 * `ta/usable_roles` allows you to change the roles that can be selected. It should return an array of roles in the form of slug=>name
 * `ta/usable_opst_types` allows you to change the post_types that can be selected. It should return an array of post type objects
+* `ta/post_query` allows you to modify the arguments of the WP_Query which retrieves the posts that we look up the authors for. Modify the arguments if you want to force category-specific top authors on single post pages, or other similar uses
 
 == Screenshots ==
 
@@ -82,6 +83,9 @@ Currently there are two filters you can use to control the options available in 
 
 
 == Changelog ==
+
+= 1.0.8 (2015-05-06) =
+- Added the ta/post_query filter for more control over the authors shown
 
 = 1.0.7 (2015-05-06) =
 - Corrected a typo in a variable name
