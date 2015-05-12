@@ -86,6 +86,9 @@ Currently there are three filters you can use to control the options available i
 
 == Changelog ==
 
+= 1.0.10 (2015-05-12) =
+* Added widget_title filter to the Widget title
+
 = 1.0.9 (2015-05-12) =
 * Added the custom ID field
 * Widget hidden if no authors
