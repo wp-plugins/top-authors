@@ -72,6 +72,8 @@ class Top_Authors_Widget extends WP_Widget {
 
         $archive_specific = ( !empty( $instance['archive_specific'] ) ) ? true : false;
 
+        $custom_id = ( !isset( $instance['custom_id'] ) ) ? '' : $instance['custom_id'];
+
         $presets = array(
             __( 'Custom Structure', 'top-authors' ) => 'custom',
             __( 'Gravatar Only', 'top-authors' ) => 'gravatars',
@@ -178,6 +180,11 @@ class Top_Authors_Widget extends WP_Widget {
 
             </div>
 
+            <p>
+                <label for="<?php echo $this->get_field_name( 'custom_id' ); ?>"><?php _e( 'Custom ID:', 'top-authors' ) ?> </label>
+                <input class="widefat" id="<?php echo $this->get_field_id( 'custom_id' ); ?>" name="<?php echo $this->get_field_name( 'custom_id' ); ?>" type="text" value="<?php echo esc_attr( $custom_id ); ?>" />
+            </p>
+
         </div>
 
         <?php
@@ -226,8 +233,13 @@ class Top_Authors_Widget extends WP_Widget {
      *
      */
     public function widget( $args, $instance ) {
-
         global $wpdb;
+
+        $defaults = array(
+            'custom_id' => ''
+        );
+
+        $instance = wp_parse_args( $instance, $defaults );
 
         // Before widget and title
         echo $args['before_widget'];
@@ -261,7 +273,7 @@ class Top_Authors_Widget extends WP_Widget {
             }
         }
 
-        $atts = apply_filters( 'ta/post_query', $atts );
+        $atts = apply_filters( 'ta/post_query', $atts, $instance );
 
         // Grab all posts
         $posts = new WP_Query( $atts );
@@ -305,11 +317,11 @@ class Top_Authors_Widget extends WP_Widget {
 
             // Display preset
             if( method_exists( $this, 'display_' . $instance['preset'] ) ) {
-                call_user_func( array( $this, 'display_' . $instance['preset'] ), $users );
+                call_user_func( array( $this, 'display_' . $instance['preset'] ), $users, $instance );
             }
             // Display custom list
             else {
-                echo '<div class="ta-custom">';
+                echo '<div class="ta-custom ' . $instance['custom_id'] . '">';
                 echo $instance['before_list'];
 
                 foreach( $users as $user ) {
@@ -390,8 +402,8 @@ class Top_Authors_Widget extends WP_Widget {
      * @since 1.0.0
      *
      */
-    function display_list_count( $users ) {
-        echo '<ul class="ta-preset ta-list-count">';
+    function display_list_count( $users, $instance ) {
+        echo '<ul class="ta-preset ta-list-count ' . $instance['custom_id'] . '">';
         foreach( $users as $user ) {
             global $author;
             $template = "<li><a href='%posts_url%'>%displayname%</a> (%post_count%)</li>";
@@ -413,9 +425,9 @@ class Top_Authors_Widget extends WP_Widget {
      * @since 1.0.0
      *
      */
-    function display_gravatar_list_count( $users ) {
+    function display_gravatar_list_count( $users, $instance ) {
         wp_enqueue_style( 'ta-preset-gravatar-list-count' );
-        echo '<ul class="ta-preset ta-gravatar-list-count">';
+        echo '<ul class="ta-preset ta-gravatar-list-count ' . $instance['custom_id'] . '">';
         foreach( $users as $user ) {
             global $author;
             $template = "<li><a href='%posts_url%'>%gravatar_32% %displayname%</a> (%post_count%)</li>";
@@ -437,9 +449,9 @@ class Top_Authors_Widget extends WP_Widget {
      * @since 1.0.0
      *
      */
-    function display_gravatar_name( $users ) {
+    function display_gravatar_name( $users, $instance ) {
         wp_enqueue_style( 'ta-preset-gravatar-name' );
-        echo '<ul class="ta-preset ta-gravatar-name">';
+        echo '<ul class="ta-preset ta-gravatar-name ' . $instance['custom_id'] . '">';
         foreach( $users as $user ) {
             global $author;
             $template = "<li><a href='%posts_url%'>%gravatar_42% %displayname%</a></li>";
@@ -461,9 +473,9 @@ class Top_Authors_Widget extends WP_Widget {
      * @since 1.0.0
      *
      */
-    function display_gravatars( $users ) {
+    function display_gravatars( $users, $instance ) {
         wp_enqueue_style( 'ta-preset-gravatars' );
-        echo '<ul class="ta-preset ta-gravatars">';
+        echo '<ul class="ta-preset ta-gravatars ' . $instance['custom_id'] . '">';
         foreach( $users as $user ) {
             global $author;
             $template = "<li><a href='%posts_url%'>%gravatar_60%</a></li>";

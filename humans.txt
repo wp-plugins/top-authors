@@ -23,6 +23,6 @@ Website: https://twitter.com/davegandy
 For: Making FontAwesome
 
 /* META */
-Updated: 2015/05/05
+Updated: 2015/05/12
 Software: WordPress
 See: http://humanstxt.org/

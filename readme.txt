@@ -64,6 +64,8 @@ When you select "Custom Structure" as the preset display you should see three ne
 * %post_count%: Number of posts
 * %meta_FIELD%: Displays the given meta field. If you store a user's Twitter name in the 'twitter' meta field you could use %meta_twitter% to display it.
 
+As of 1.0.9 there is also a custom ID field. This is for advanced use, mainly for developers. It allows for custom CSS stylings and even custom queries on a widget-to-widget basis.
+
 = For Developers =
 
 Currently there are three filters you can use to control the options available in the widget.
