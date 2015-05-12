@@ -86,11 +86,16 @@ Currently there are three filters you can use to control the options available i
 
 == Changelog ==
 
+= 1.0.9 (2015-05-12) =
+* Added the custom ID field
+* Widget hidden if no authors
+
+
 = 1.0.8 (2015-05-06) =
-- Added the ta/post_query filter for more control over the authors shown
+* Added the ta/post_query filter for more control over the authors shown
 
 = 1.0.7 (2015-05-06) =
-- Corrected a typo in a variable name
+* Corrected a typo in a variable name
 
 = 1.0.6 (2015-05-06) =
 * Corrected an issue with the Authors to show parameter

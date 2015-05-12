@@ -241,13 +241,6 @@ class Top_Authors_Widget extends WP_Widget {
 
         $instance = wp_parse_args( $instance, $defaults );
 
-        // Before widget and title
-        echo $args['before_widget'];
-
-        if( !empty( $instance['title'] ) ) {
-            echo $args['before_title'] . $instance['title'] . $args['after_title'];
-        }
-
         // Get the ID of all the required posts
         $atts = array(
             'post_type' => $instance['include_post_types'],
@@ -283,6 +276,13 @@ class Top_Authors_Widget extends WP_Widget {
         $users = $wpdb->get_results( "SELECT post_author, COUNT(ID) as post_count FROM $wpdb->posts WHERE ID IN ($posts) GROUP BY post_author ORDER BY post_count DESC" );
 
         if( !empty( $users ) ) {
+
+            // Before widget and title
+            echo $args['before_widget'];
+
+            if( !empty( $instance['title'] ) ) {
+                echo $args['before_title'] . $instance['title'] . $args['after_title'];
+            }
 
             $user_ids = array();
             foreach( $users as $user ) {
@@ -334,9 +334,10 @@ class Top_Authors_Widget extends WP_Widget {
                 echo $instance['after_list'];
                 echo '</div>';
             }
-        }
 
-        echo $args['after_widget'];
+            echo $args['after_widget'];
+
+        }
     }
 
 
