@@ -86,6 +86,9 @@ Currently there are three filters you can use to control the options available i
 
 == Changelog ==
 
+= 1.0.11 (2015-06-10) =
+* Prevented warning from appearing if there were no posts in the main query
+
 = 1.0.10 (2015-05-12) =
 * Added widget_title filter to the Widget title
 

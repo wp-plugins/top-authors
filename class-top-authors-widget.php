@@ -272,8 +272,10 @@ class Top_Authors_Widget extends WP_Widget {
         $posts = new WP_Query( $atts );
         $posts = implode( ',', $posts->posts );
 
-        // Select user ids ordered by the number of posts they've written
-        $users = $wpdb->get_results( "SELECT post_author, COUNT(ID) as post_count FROM $wpdb->posts WHERE ID IN ($posts) GROUP BY post_author ORDER BY post_count DESC" );
+        if( !empty( $posts ) ) {
+         // Select user ids ordered by the number of posts they've written
+         $users = $wpdb->get_results( "SELECT post_author, COUNT(ID) as post_count FROM $wpdb->posts WHERE ID IN ($posts) GROUP BY post_author ORDER BY post_count DESC" );
+        }
 
         if( !empty( $users ) ) {
 
